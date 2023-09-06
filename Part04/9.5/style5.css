@@ -1,0 +1,17 @@
+a[title] {
+    border-color: pink;
+}
+a[href*="contact"] {
+    border-color: orange;
+}
+a[href^="https"] {
+    border-color: green;
+}
+a {
+    border: 5px solid grey;
+}
+a {
+    display: block;
+    padding: 0.5em;
+  }
+

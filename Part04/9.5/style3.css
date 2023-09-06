@@ -1,0 +1,27 @@
+
+/* 设置链接样式 */
+a {
+    color: orange; /* 初始链接文本颜色为橘色 */
+    text-decoration: none; /* 移除链接文本的下划线 */
+  }
+  
+  a:hover {
+    color: green; /* 鼠标悬停时链接文本变为绿色 */
+  }
+  
+  a:visited {
+    color: green; /* 被访问后链接文本颜色为绿色 */
+  }
+  
+  /* 设置容器中第一个元素的样式 */
+  .container p:first-child {
+    font-size: 150%; /* 字体大小为150% */
+    color: red; /* 第一个元素的第一行文本颜色为红色 */
+  }
+  
+  /* 设置表格每隔一行的样式 */
+  table tr:nth-child(odd) {
+    background-color: #333; /* 背景颜色为#333 */
+    color: white; /* 前景颜色为白色 */
+  }
+  

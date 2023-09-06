@@ -1,0 +1,17 @@
+/* 一级标题的字体颜色为蓝色 */
+h1 {
+    color: blue;
+  }
+  
+  /* 二级标题有蓝色背景和白色文本 */
+  h2 {
+    background-color: blue;
+    color: white;
+  }
+  
+  /* 跨距中换行的文本字体大小为 200% */
+  span {
+    word-wrap: break-word;
+    font-size: 200%;
+  }
+  

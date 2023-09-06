@@ -1,0 +1,13 @@
+h2 + p 
+{
+    color: red;
+}
+.list{
+    list-style-type: none; /* 移除圆点 */
+    padding-left: 0; /* 移除默认的左边距 */
+}
+.list > li
+{
+    border-bottom: 1px solid grey;
+    padding: 5px 0;
+}
