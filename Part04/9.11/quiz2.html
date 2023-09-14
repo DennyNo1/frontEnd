@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+.box {
+  position: relative;
+  width: 100%; /* 设置盒子的宽度 */
+  height: 100px; /* 设置盒子的高度 */
+  overflow: hidden; /* 隐藏超出盒子的内容 */
+}
+
+h2 {
+  background-image: url('star.png'), url('star.png'), url('star.png'), url('star.png'); /* 设置背景图像路径，分别为左边的星星和右边的3张星星 */
+  background-repeat: no-repeat;
+  background-position: left center, right top, right center, right bottom; /* 设置背景图像位置 */
+  padding-left: 40px; /* 增加左内边距以避免星星与文本重叠 */
+  text-align: center; /* 居中标题文本水平对齐 */
+  line-height: 100px; /* 垂直居中标题文本 */
+  font-size: 24px; /* 根据需要设置标题文本字体大小 */
+  margin: 0; /* 移除标题的默认外边距 */
+}
+    </style>
+</head>
+<body>
+    <div class="box"> 
+        <h2>Backgrounds & Borders</h2>
+    </div>
+</body>
+</html>
