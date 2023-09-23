@@ -1,0 +1,80 @@
+
+body {
+    margin: 0;
+  }
+  
+  html {
+    font-family: 'Helvetica neue', Arial, 'sans serif';
+    font-size: 10px;
+    background-color: #ccc;
+  }
+  .card
+  {
+    
+        width: 35em;
+        height: 22em;
+        margin: 5em auto;
+        background-color: red;
+        border: 0.2em solid black;
+        border-radius: 1.5em;
+}
+.card footer{
+    background-image: linear-gradient(to bottom,rgba(0,0,0,0.1), rgba(0,0,0,0));
+    border-radius: 1.5em 1.5em 0 0;
+  
+   
+  }
+   
+.card header
+{ 
+    background-image: linear-gradient(to bottom,rgba(0,0,0,0), rgba(0,0,0,0.1));
+    border-radius: 0 0 1.5em 1.5em;
+    
+        
+}
+.card article img{
+    max-height: 100%;
+
+    float: right;
+  }
+  .card-head,
+.card-footer {
+    height: 3em; /* 3em = 30px for content height */
+    padding: 0.5em; /* 0.5em = 10px for padding */
+    /* 总高度 = 内容高度 + padding */
+}
+h2,
+p{
+    margin: 0;
+}
+.card article
+{
+    height: 12em;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 阴影效果 */
+}
+h2
+{
+  font-size: 20px; /* 20px / 16px = 1.25em */
+  line-height: 30px; /* 设置行高为 30px，以使内容垂直居中 */
+  height: 30px;
+  display: flex;
+  align-items: center;
+  text-align: left; /* 文本水平靠左 */
+  padding: 5px; /* 可以去掉默认的内边距 */
+  
+}
+footer p
+{
+  font-size: 15px;
+  text-align: center;
+  height: 60px;
+  
+  
+  
+}
+  
+.card article p
+{
+  padding: 5px;
+}

@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-family: sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    background: #ccc;
+    background-color: white;
+    
+    
+    
+  }
+  
+  article {
+    width: 210mm;
+    height: 297mm;
+    margin: 20px auto;
+    position: relative;
+    border-left: 2mm solid black;
+    border-right: 2mm solid black;
+    
+  }
+  
+  address {
+    position: absolute;
+    bottom: 8mm;
+    right: 20mm;
+  }
+  
+  h1 {
+    background-image: url('logo.png');
+    background-position: 0 0 0 0;
+    position: absolute;
+    top: 10mm;
+    left: 10mm;
+    width: 128px;
+    height: 128px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 44px 0;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    ;
+  }
+  .top-image  {
+    width: 206mm;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), transparent 100%, transparent 75%, rgba(0, 0, 0, 0.5));
+    background-size: auto;
+    display: block; /* 使图片成为块级元素，以便应用margin:auto; */
+    margin: 0 auto; /* 设置左右外边距为auto，实现水平居中 */
+
+  }
+  .bottom-image
+  {
+    
+    width: 206mm;
+    background-size: auto;
+    background: linear-gradient(to top,rgba(0, 0, 0, 0.5), transparent 100%, transparent 75%, rgba(0, 0, 0, 0.5));
+    display: block; /* 使图片成为块级元素，以便应用margin:auto; */
+    position: absolute; /* 设置绝对定位 */
+    bottom: 0; /* 将bottom属性设置为0，使其位于底部 */
+    margin: 0 auto; /* 设置左右外边距为auto，实现水平居中 */
+
+  }
+  article,
+.top-image,
+.bottom-image {
+    margin: 0 auto;
+}
+
+
+  
+  /* Your CSS below here */
