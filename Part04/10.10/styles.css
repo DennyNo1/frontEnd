@@ -1,0 +1,93 @@
+body {
+    background-color: #fff;
+    color: #333;
+    margin: 0;
+    font: 1.2em / 1.2 Arial, Helvetica, sans-serif;
+  }
+
+  img {
+    float: left;
+      max-width: 100%;
+      display: block;
+      margin-right: 1rem;
+  }
+  
+  .logo {
+    font-size: 200%;
+    padding: 50px 20px;
+    margin: 0 auto;
+    max-width: 980px;
+  }
+  
+  .grid {
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 980px;
+  }
+  .grid
+  {
+    margin-top: 5rem;
+  }
+  
+  nav {
+
+    padding: 1rem 0;
+    background-color: #000;
+    position: fixed;
+    width: 100%;
+    
+    z-index: 3;
+
+    /* 该盒子位于最上层 不要被其它盒子覆盖 */
+    z-index: 3;
+
+
+
+    /* 设置固定定位 */
+    
+
+  }
+  
+  nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+  }
+  
+  nav li {
+    margin: 0;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 1rem 2rem;
+  }
+  
+  /* 调整链接之间的间隔，最左侧和最右侧的间距较小 */
+
+  
+  
+  
+  .photos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .feature {
+      width: 200px;
+  }
+  main
+  {
+    display: flex;
+  }
+  main aside ul
+  {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1px;
+  }
