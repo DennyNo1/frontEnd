@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--一个书架，展示一个数组的书的内容，并有删除某本书的功能-->
+    <div id='app'>
+        <h3>小黑的书架</h3>
+        <ul>
+            <li v-if='book.flag' v-for='book in bookList'><!--book是自定义的-->>
+                <span>{{book.name}}</span>
+                <span>{{book.author}}</span>
+                <button @click='book.flag=flase'>删除</button>
+                <!--也可以直接删除vue根实例的data的bookList的数据。 就是在根实例里添加一个methods。将数组进行filter在赋值给原数组。-->>
+
+            </li>
+        </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script>
+        const app=new Vue(
+            {
+                el:'#app',
+                data:{
+                    bookList:[
+                        {id:1, name:'《红楼梦》',author:'曹雪芹', flag:'true'},
+                        {id:2, name:'《西游记》', author:'吴承恩',flag:'true'},
+                        {id:3, name:'《三国演义》', author:'罗贯中',flag:'true'},
+                        {id:4, name:'《水浒传》', author:'施耐庵',flag:'true'}
+                    ]
+                }
+            }
+        )
+    </script>
+</body>
+</html>

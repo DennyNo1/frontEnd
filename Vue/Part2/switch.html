@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--目标：做一个能切换几张图片的页面-->
+    <!--思路：准备数组存储图片。v-bind绑定src。-->
+    <div id="app">
+        <button v-if="index>0" v-on:click="index--">last one</button>
+        <div>
+            <img v-bind:src="list[index]">
+        </div>
+        <button v-if="index<list.length-1" @click="index++">next one</button>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                index:0,
+                list: [
+                    './image/Anya1.jfif',
+                    './image/Anya2.jfif',
+                    './image/Anya3.jfif',
+                    './image/Anya4.jfif',
+                ] // 这里可以存储你的图片数组
+            }
+        });
+    </script>
+</body>
+</html>
