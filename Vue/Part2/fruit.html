@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        td
+        {
+            
+            border: 1px solid #ddd;
+            width: auto;
+        }
+
+        span
+        {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="fruitlist-case">
+        <img src="./image/fruit.jfif">
+        <div>
+            <img src="./image/trolley.png">
+            <span>购物车
+            </span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <td><span>选中了吗</span></td>
+                    <td><span>图片</span></td>
+                    <td><span>每斤价格</span></td>
+                    <td><span>斤数</span></td>
+                    <td><span>小计</span></td>
+                    <td><span>操作</span></td>
+                </tr>
+            </thead>
+            <tbody v-if="list.length>0" v-for="(li,index) in list">
+                <tr>
+                    <td>
+                        <input type="checkbox" v-model="li.isChecked">
+                    </td>
+                    <td>
+                        <div>
+                            <img :src="li.img">
+                        </div>
+                        
+
+                    </td>
+
+                    <td>
+                        {{li.price}}
+                    </td>
+                    <td>
+                        <button @click="sub(index)">-</button>
+                        {{li.number}}
+                        <button @click="add(index)">+</button>
+                    </td>
+                    <td>
+                        {{li.price * li.number}}
+                    </td>
+                    <td>
+                        <button @click="del(index)">删除</button>
+                    </td>
+                </tr>
+
+            </tbody>
+            <tbody v-else>
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td id="allSelected">
+                        全选<input type="checkbox" v-model="allSelected">
+                    </td>
+                    <td @click="total()">
+                        总价：{{total}}
+                    </td>
+                    <td>
+                        <button>结算({{selected}})</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+    
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script>
+        const app=new Vue(
+            {
+                el:'#app',
+                data:{
+                    list:[
+                        {id:1,isChecked:false,img:"./image/apple.png",price:6,number:1},
+                        {id:2,isChecked:false,img:'./image/lemon.png',price:4,number:1},
+                        {id:3,isChecked:false,img:'./image/strawberry.png',price:19,number:1},
+                        {id:4,isChecked:false,img:'./image/mandarin.png',price:8,number:1}
+                    ],
+                    sum:0,
+                    //将旧的list从本地取出并转换
+                    oldList:JSON.parse(localStorage.getItem('list')),
+                },
+                methods:{
+                    add(index){
+                        const item=this.list[index];
+                        item.number++;
+                    },
+                    sub(index){
+                        const item=this.list[index];
+                        if(item.number===1)
+                        {
+                            alert('最小数量为1');
+                            return
+                        }
+                        item.number--;
+                            
+                    },
+                    del(index){
+                        this.list.splice(index, 1);
+                    },
+
+                    },
+                computed:{
+                    total:function(){
+                        let sum = 0;
+                        for(let i=0;i<this.list.length;i++){
+                            if(this.list[i].isChecked){
+                                sum += this.list[i].number*this.list[i].price;
+                            }
+                        }
+                        return sum;
+                    },
+                    selected:function(){
+                        let sum = 0;
+                        for(let i=0;i<this.list.length;i++){
+                            if(this.list[i].isChecked){
+                                sum ++;
+                            }
+                        }
+                        return sum;
+                    },
+                    allSelected:
+                    {
+                        get:function(){
+                        let sum = true;
+                        for(let i=0;i<this.list.length;i++){
+                            if(!this.list[i].isChecked){
+                                sum=false;
+                            }
+                        }
+                        return sum;
+                        },
+                        //这里的 value 就是你给 allSelected 赋予的新值。当你通过点击全选的复选框改变 allSelected 的值时，Vue.js 会将新的值传递给 set 部分，
+                        set:function(value){
+                            for(let i=0;i<this.list.length;i++){
+                            this.list[i].isChecked=value;
+                                
+                            }
+                        }
+                        
+                    }
+                    },
+                watch:{
+                    list:{
+                        deep:true,//当你将 deep 设置为 true 时，Vue.js 会递归地监听对象内部的属性变化，而不仅仅是对象本身的变化。
+                        handler(newValue){
+                            console.log(newValue);
+                            //newValue实际上是整个list，而不仅仅是变化的元素。将变化后的newValue,再转换成JSON后存入本地。
+                            localStorage.setItem('list',JSON.stringify(newValue));
+
+                        }
+                    }
+                }
+                }
+                
+
+            
+        )
+    </script>
+</body>
+</html>

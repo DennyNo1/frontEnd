@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        td
+        {
+            
+            border: 1px solid #ddd;
+            width: auto;
+        }
+        .red
+        {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <!--这一个案例的重点仅在于，数据不是用户添加，也不是前端预先写好的，而是从后端请求的，并且添加数据也向后端发送请求-->
+    <div id="app">
+        <input placeholder="产品名称" v-model="name">
+        <input placeholder="价格" v-model="price">
+        <button @click="add()" >添加账单</button>
+        <table>
+            <thead>
+                <tr>
+                    <td><span>编号</span></td>
+                    <td><span>产品名称</span></td>
+                    <td><span>价格</span></td>
+                    <td><span>操作</span></td>
+                </tr>
+            </thead>
+            <tbody v-for="(li,index) in list">
+                <tr>
+                    <td>{{index+1}}</td>
+                    <td>{{li.name}}</td>
+                    <!--三元表达式-->>
+                    <td :class="{red:li.price>100}">{{li.price}}</td>
+                    <td><button @click="del(li.id)">删除</button></td>
+                    
+                </tr>
+            </tbody>
+            <tfoot>
+                消费总计：{{total}}
+            </tfoot>
+        </table>
+        
+            <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
+            <div id="main" style="width: 600px;height:400px;"></div>
+          
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script>
+        const app=new Vue(
+            {
+                el:'#app',
+                data:{
+                    list:[{id:1,name:'ceshi',price:123}],
+                    name:"",
+                    price:0
+                },
+                async created(){
+                    //这个的作用就是渲染
+                    this.getList();
+                },
+                mounted(){
+                    // 基于准备好的dom，初始化echarts实例
+                        
+                },
+
+
+
+                computed:{
+                    total:function(){
+                        let sum = 0;
+                        for(let i=0;i<this.list.length;i++){
+                           
+                                sum += this.list[i].price;
+                            
+                        }
+                        return sum;
+                    },
+                },
+                methods:{
+                    async getList(){
+                        const res= await axios.get('https://applet-base-api-t.itheima.net/bill',
+                    {
+                        params:{
+                            creator:'denny'
+                        }
+                    })
+                    this.list=res.data.data;
+                    var myChart = echarts.init(document.getElementById('main'));
+
+                        // 指定图表的配置项和数据
+                        var option = {
+                            title: {
+                                text: '消费账单饼图',
+                                subtext: '无',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item'
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left'
+                            },
+                            //数据项
+                            series: [
+                                {
+                                name: 'Access From',
+                                type: 'pie',
+                                radius: '50%',
+                                data: 
+                                //[
+                                    //{value:123,name:'球鞋'},{value:123,name:'防晒霜'}
+                                //]
+                                this.list.map(item=>({value:item.price, name: item.name}))
+                                ,emphasis: {
+                                    itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                                }
+                            ]
+                        };
+
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    },
+
+                    async add(){
+                        if(!this.name)
+                        {
+                            alert("请输入产品名称");
+                            return;
+                        }
+                        if(typeof this.price !=='number')
+                        {
+                            alert("请输入正确的数字");
+                            return;
+                        }
+                        const res= await axios.post('https://applet-base-api-t.itheima.net/bill',{
+                            creator:'denny',
+                            name:this.name,
+                            price:this.price
+                        });
+                        console.log(res);
+                        this.getList();
+
+                        },
+                    async del(id)
+                    {
+                        console.log(id);
+                        const res = await axios.delete(`https://applet-base-api-t.itheima.net/bill/${id}`);
+                        console.log(res);
+                        this.getList();
+                    }
+
+                    }
+
+                }
+            
+
+        )
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #app {
+            display: flex;
+        }
+
+        .red-text {
+       color: red;
+   }
+
+    </style>
+</head>
+<body>
+    <div id="app" class="score-case">
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>科目</td>
+                        <td>成绩</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody v-if="list.length>0" v-for="(li,index) in list">
+                    <tr>
+                        <td>{{index+1}}</td>
+                        <td>{{li.subject}}</td>
+                        <!--这里额外的需求：成绩小于60需要红名显示-->
+                        <td :class="{ 'red-text': li.score < 60 }">{{li.score}}</td>
+                        <td><button @click="removeItem(index)">删除</button></td>
+                    </tr>
+                </tbody>
+                <tbody v-else></tbody><!--这一块用于没有数据的显示，与上面一块互斥显示-->
+                <tfoot>
+                    <tr>
+                        
+                        <td>总分: {{total}}</td>
+                        <td>平均分: {{average}}</td>
+                    </tr>
+                </tfoot>
+
+
+            </table>
+        </div>
+        <div class="form">
+            <div class="form-item">
+                <div class="subject">科目：</div>
+                <div class="input">
+                    <input v-model='newSubject' type="text" placeholder="请输入科目">
+                </div>
+                <div class="score">成绩：</div>
+                <div class="input">
+                    <input v-model='newScore' type="number" placeholder="成绩">
+                </div>
+                <button @click="add">添加</button>
+                    
+
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script>
+        const app=new Vue(
+            {
+                el:'#app',
+                data:{
+                    list:[
+                        {id:1,subject:'语文',score:97},
+                        {id:2,subject:'数学',score:99}
+                    ],
+                    newSubject:'',
+                    newScore:0,
+                    count:2
+                    
+                },    
+                computed: {
+                    total: function() {
+                        return this.list.reduce((acc, item) => acc + parseInt(item.score), 0);
+                        },
+                    average: function() {
+                        return this.total / this.list.length;
+                }   
+                },
+                methods: {
+                    removeItem: function(index) {
+                        this.list.splice(index, 1);//1代表删除1个元素
+                    },
+                    add(){
+                        if(this.newScore>300)
+                        {
+                            alert('请输入正确的成绩！');
+                            return;
+                        }
+                        const existingSubject = this.list.find(item => item.subject === this.newSubject);
+                        if(existingSubject) {
+       alert('请不要输入重复的科目!');
+       return;
+   }
+                        //不可输入重复的科目
+                        this.list.push({id:this.count,subject:this.newSubject,score:this.newScore});
+                        this.count++;
+
+                    },
+}
+
+            }
+        )
+    </script>
+</body>
+</html>

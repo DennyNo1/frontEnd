@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function delay() {
+
+    return new Promise(resolve => {
+        setTimeout(() => {
+            console.log('After waiting for 10 second');
+            resolve();
+        }, 10000);
+  });
+      }
+      
+      async function example() {
+        console.log('Start');
+      
+        // 使用 await 暂停函数，并等待 delay 函数的 Promise 对象
+        //await 
+        delay();
+      
+        console.log('End');
+      }
+      
+      example();
+    </script>
+    
+</body>
+</html>
