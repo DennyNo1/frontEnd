@@ -13,17 +13,17 @@
     />
 
     <!-- 轮播图 -->
-    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="item in realData[1].data" :key="item"><!--key还是可以绑定item-->
+    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" v-if="realData[1]">
+      <van-swipe-item v-for="item in realData[1].data" :key="item.imgUrl"><!--key还是可以绑定item-->
         <img :src="item.imgUrl" alt="">
       </van-swipe-item>
 
     </van-swipe>
 
     <!-- 导航 -->
-    <van-grid column-num="5" icon-size="40">
+    <van-grid column-num="5" icon-size="40" v-if="realData[3]">
       <van-grid-item
-        v-for="item in realData[3].data" :key="item"
+        v-for="item in realData[3].data" :key="item.imgUr"
         :icon="item.imgUrl"
         :text="item.text"
         @click="$router.push('/category')"
@@ -39,8 +39,8 @@
     <div class="guess">
       <p class="guess-title">—— 猜你喜欢 ——</p>
 
-      <div class="goods-list">
-        <GoodsItem v-for="item in realData[6].data" :key="item" :childProps="item"></GoodsItem>
+      <div class="goods-list" v-if="realData[6]">
+        <GoodsItem v-for="item in realData[6].data" :key="item.goods_id" :childProps="item"></GoodsItem>
       </div>
     </div>
   </div>
@@ -61,9 +61,8 @@ data(){
 },
 async created(){
     const homeData=await getHomeData()
-    
     this.realData=homeData.data.pageData.items
-    console.log(this.realData)
+    console.log(homeData)
 }
 }
 </script>

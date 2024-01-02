@@ -13,6 +13,7 @@ import MyMine from '@/views/MyMine'
 import MyOrder from '@/views/MyOrder'
 import store from '@/store'
 import ProDetail from '@/views/ProDetail'
+import SettleMent from '@/views/SettleMent'
 
 
 Vue.use(VueRouter)
@@ -22,7 +23,7 @@ const router = new VueRouter({
     
     {path: '/Login', component: LogIn },
     
-    {path: '/LayOut', component: LayOut ,redirect:'/MyHome',
+    {path: '/', component: LayOut ,
     children:[
       {path:'/MyHome',component:MyHome},
       {path:'/MyType',component:MyType},
@@ -33,32 +34,37 @@ const router = new VueRouter({
     {path: '/SearchList', component: SearchList },
     {path: '/SearchPage', component: SearchPage },
     {path: '/MyOrder', component: MyOrder},
-    {path:'/prodetail',component:ProDetail}
+    {path:'/prodetail',component:ProDetail},
+    {path:'/settlement',component:SettleMent}
   ]
 })
 router.beforeEach((to, from, next) => {
   
- const authUrl=['/myshoppingcart','/mymine','/mypay','/myorder']
- if(!authUrl.includes(to.path)) 
- {
-  
-  next();//to.path比to.name多了/
- }
- //如果要访问需要登录的路径
- else {
-  //先通过它有没有token来证明有没有登录
-  console.log("认证")
-  if(store.state.user.userInfo.token)//store和this.$store是等价的。但是这里的this并不是如同组件一样，指向vue实例。所以通过导入store。
+  const authUrl=['/myshoppingcart','/mymine','/mypay','/myorder']
+  if(!authUrl.includes(to.path)) //to.path比to.name多了/
   {
-    next()
+   next();//放行
   }
-  else{
-    next('/Login')
+  //如果要访问需要登录的路径
+  else {
+   //先通过它有没有token来证明有没有登录
+   console.log("认证")
+   if(store.state.user.userInfo && store.state.user.userInfo.token )//store和this.$store是等价的。但是这里的this并不是如同组件一样，指向vue实例。所以通过导入store。
+   {
+     next()
+   }
+   else{
+     next('/Login')
+   }
+   
   }
-  
- }
+ 
+ })
 
-})
+ router.onError((error) => {
+  console.error(error);
+});
+
 
 
 

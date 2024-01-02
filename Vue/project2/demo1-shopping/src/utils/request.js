@@ -1,6 +1,7 @@
 /* 封装axios用于发送请求 */
 import axios from 'axios'
 import { Toast } from 'vant';
+import store from '@/store/index'
 
 // 创建一个新的axios实例
 const request = axios.create({
@@ -12,17 +13,35 @@ const request = axios.create({
 request.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
 
+
+  const token = store.state.user.userInfo.token
+  if (token) {
+    config.headers['Access-Token'] = token
+    config.headers.platform = 'H5'
+  }
+
   //在任何请求发送前跳出loading
   Toast.loading({
     message: '加载中...',
     forbidClick: true,
     duration:0
   });
+
+  
+
+
   return config
-}, function (error) {
+}, 
+function (error) {
   // 对请求错误做些什么
   return Promise.reject(error)
 })
+
+
+
+
+
+
 
 // 添加响应拦截器
 request.interceptors.response.use(function (response) {

@@ -47,9 +47,10 @@ Vue.use(Toast);
 export default {
   name: 'LoginPage',
   async created () {
+    this.getPicCode();
     
-    this.getPicCode()
   },
+  
   data(){
     return{
       picUrl:'',
@@ -60,6 +61,7 @@ export default {
       picCode:'',
       phonenumber:'',
       message:'',
+      originalPath:this.$route.query.from
     }
 
   },
@@ -103,6 +105,7 @@ export default {
         }
         else{
           const res=await login(false,this.phonenumber,{},this.message)
+          
           //登录成功
           if(res.status===200)
           {
@@ -111,8 +114,13 @@ export default {
             this.$store.state.user.userInfo=res.data
             setData(res.data)//往本地存入数据
             //页面跳转
-            this.$router.push("/LayOut")
-          }
+            if(!this.originalPath)
+            {
+              this.$router.push("/LayOut")
+            }
+            else this.$router.replace(this.originalPath)
+            }
+            
           else{
             Toast('验证码输入错误');
             return;
@@ -139,7 +147,8 @@ export default {
   },  
   destroyed(){
     clearInterval(this.timer);
-  }
+  },
+
 
 }
 </script>
