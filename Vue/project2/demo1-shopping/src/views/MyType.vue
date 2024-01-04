@@ -56,7 +56,7 @@
 
     },
     selectType(name){
-      this.$router.push(`/searchlist?key=${name}`);
+      this.$router.push(`/searchlist?name=${name}`);
     }
   },
   async created(){

@@ -92,13 +92,14 @@
     <!-- 底部 -->
     <div class="footer">
       <div class="icon-home">
-        <van-icon name="wap-home-o" />
+        <van-icon @click="$router.push('/myhome')" name="wap-home-o" />
         <span>首页</span>
       </div>
       <div class="icon-cart">
         <van-icon
           name="shopping-cart-o"
           :badge="total_number"
+          @click="$router.push('/myshoppingcart')"
         /><!--购物车图标，用于跳转购物车页面-->
         <span>购物车</span>
       </div>
@@ -152,15 +153,15 @@
 </template>
 
 <script>
-import { addCart2 } from "@/api/cart";
+import { addCart2,getCartTotal} from "@/api/cart";
 import { getDetails } from "@/api/details";
 import { getCommentNumber, getComment } from "@/api/comment";
-import test from '@/mixins/test'
+import test from "@/mixins/test";
 import { Dialog } from "vant";
 
 export default {
   name: "ProDetail",
-  mixins:[test],
+  mixins: [test],
   data() {
     return {
       current: 0,
@@ -241,25 +242,23 @@ export default {
   },
   async created() {
     this.sayHi();
-    this.goods_id = this.$route.query.goods_id;
+
+    //获取后端的数据
+    this.goods_id = this.$route.query.goods_id;//从网址上获取goods_id
     const response = await getDetails(this.goods_id);
-    console.log(response);
+    //console.log(response);
     this.goods_details = response.data.detail;
-    console.log(this.goods_details);
+    //console.log(this.goods_details);
 
     //获取评论
     this.comment_number = await getCommentNumber(this.goods_id);
     this.number = this.comment_number.data.total.all;
     const response_1 = await getComment(this.goods_id, 3);
-    console.log(response_1);
+    //console.log(response_1);
     this.comment_short = response_1.data.list;
 
     //获取购物车商品总数量
-    const res = await addCart2(
-      this.goods_details.goods_id,
-      this.init_number,
-      this.goods_details.skuList[0].goods_sku_id
-    );
+    const res = await getCartTotal();
     this.total_number = res.data.cartTotal;
   },
 };

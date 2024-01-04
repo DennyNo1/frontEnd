@@ -23,7 +23,7 @@ const router = new VueRouter({
     
     {path: '/Login', component: LogIn },
     
-    {path: '/', component: LayOut ,
+    {path: '/', component: LayOut ,redirect:'/MyHome',
     children:[
       {path:'/MyHome',component:MyHome},
       {path:'/MyType',component:MyType},

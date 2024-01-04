@@ -24,7 +24,7 @@ export const settleOrder = (
   });
 };
 //结算
-export const settle =(mode,remark) =>
+export const settle =(mode,remark,cartIds) =>
 
 {
   return request.post('/checkout/submit',{
@@ -37,7 +37,7 @@ export const settle =(mode,remark) =>
     mode:mode,
     payType:"10",
     remark:remark,
-    cartIds:''
+    cartIds:cartIds
 
 
   })

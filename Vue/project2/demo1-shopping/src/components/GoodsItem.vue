@@ -26,7 +26,7 @@ export default {
       //console.log(typeof this.childProps);
 
       // 确保在访问其属性之前，等待异步操作完成
-      await this.$nextTick();
+      //await this.$nextTick();
 
       // 继续使用this.childProps
       this.$router.push(`/prodetail?goods_id=${this.childProps.goods_id}`).catch((err) => {

@@ -24,3 +24,9 @@ export const addCart2 = (goodsId, goodsNum, goodsSkuId) => {
       cartIds:[cartId]
     })
   }
+
+  export const getCartTotal = () => {
+    return request.get('/cart/total', {
+
+    })
+  }

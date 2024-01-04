@@ -24,7 +24,13 @@ export default {
         }
     },
   },
-  actions: {},
+  actions: {
+    clear(state){
+      console.log('hh')
+      state.showCart=false
+      state.CartList=[]
+    }
+  },
   getters: {
     totalNumber(state){
         let total=0;

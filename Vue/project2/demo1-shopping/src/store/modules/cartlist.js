@@ -13,6 +13,11 @@ export default{
             }
             state.cartList=res
 
+        },
+        clear(state){
+            console.log('nihao')
+            state.cartList={}
+
         }
     },
     actions:{

@@ -11,7 +11,7 @@
         icon="shopping-cart-o"
         >购物车</van-tabbar-item
       >
-      <van-tabbar-item to="/MyMine" icon="manager-o">我的</van-tabbar-item>
+      <van-tabbar-item @click="$router.push('/mymine')" to="/MyMine" icon="manager-o">我的</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>

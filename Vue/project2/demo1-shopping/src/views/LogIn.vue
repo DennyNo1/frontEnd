@@ -116,7 +116,7 @@ export default {
             //页面跳转
             if(!this.originalPath)
             {
-              this.$router.push("/LayOut")
+              this.$router.push("/myhome")
             }
             else this.$router.replace(this.originalPath)
             }

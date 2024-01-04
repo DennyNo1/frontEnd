@@ -112,16 +112,17 @@ export default {
   async created() {
     const res = await getAddresList();
     this.addres_list = res.data.list;
-    const res2=await settleOrder(this.mode,10,0,0,0,this.cartIds)
+    const res2=await settleOrder(this.mode,10,0,0,0,this.cartIds)//这个是用于渲染这个页面的
     console.log(res2)
     this.order=res2.data.order
     this.personal=res2.data.personal
   },
   methods: {
     async settle(){
-      const res= await settle('cart',this.remark)
+      const res= await settle(this.mode,this.remark,this.cartIds)
       console.log(res)
       Toast("支付成功")
+      this.$router.replace('/myorder?dataType=all')
     }
   },
   computed:{
